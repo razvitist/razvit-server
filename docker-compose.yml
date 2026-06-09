@@ -1,0 +1,59 @@
+services:
+  nginx:
+    image: nginx
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - ./certbot-www:/var/www/certbot
+    depends_on:
+      - api
+    networks:
+      - app
+  certbot:
+    image: certbot/certbot
+    volumes:
+      - /etc/letsencrypt:/etc/letsencrypt
+      - ./certbot-www:/var/www/certbot
+    entrypoint: >
+      sh -c "while :; do
+        certbot renew --webroot -w /var/www/certbot;
+        sleep 12h;
+      done"
+  db:
+    image: postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+      TZ: Europe/Moscow
+    volumes:
+      - db:/var/lib/postgresql
+    expose:
+      - '5432'
+    networks:
+      - app
+  api:
+    restart: unless-stopped
+    build:
+      context: .
+    depends_on:
+      - db
+    env_file:
+      - .env
+    expose:
+      - '8000'
+    networks:
+      - app
+    environment:
+      - TZ=Europe/Moscow
+
+volumes:
+  db:
+
+networks:
+  app:

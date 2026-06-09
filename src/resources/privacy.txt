@@ -1,0 +1,29 @@
+Privacy policy
+
+Last modified: April 20, 2024
+
+The extension sends the API key, which you enter into pop-up window to login to our server.
+
+The extension sends your activities on websites as numbers that your band uses to determine if you are doing good things (active on good websites, watch good videos on YouTube, etc.) or not. The extension does not send what exactly you are doing.
+
+The extension sends the data that you enter into pop-up window to our server. We need this to receive statistics of websites, channels, words, etc. users prefer the most and we plan to publish the results as recommendations for other users. 
+
+We do not give your information to third parties.
+
+Privacy policy can be changed.
+
+
+
+Политика конфиденциальности
+
+Последнее изменение: 20 апреля 2024
+
+Расширение отправляет API ключ, который вы вводите в всплывающее окно, чтобы авторизироваться на нашем сервере.
+
+Расширение отправляет ваши действия на веб-сайтах в виде чисел, которые ваш браслет использует, чтобы определить, делаете ли вы хорошие вещи (активны на хороших веб-сайтах, смотрите хорошие видео на YouTube и т.д.) или нет. Расширение не отправляет что именно вы делаете.
+
+Расширение отправляет данные, которые вы вводите в всплывающее окно на наш сервер. Нам нужно это, чтобы получить статистику какие веб-сайты, каналы, слова и т.д. пользователи предпочитают вводить чаще всего и планируем публиковать результаты в качестве рекомендаций для других пользователей. 
+
+Мы не даем вашу информацию третьим лицам.
+
+Политика конфиденциальности может быть изменена.

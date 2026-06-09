@@ -1,0 +1,14 @@
+misc
+.ruff_cache
+.github
+.env
+.vscode
+readme.txt
+.venv*
+__pycache__*
+bin*
+lib*
+db.sqlite
+.pytest_cache
+.coverage
+.DS_Store

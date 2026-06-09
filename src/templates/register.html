@@ -1,0 +1,61 @@
+{% extends 'base.html' %} {% block content %}
+<div class="m-auto" style="max-width: 330px">
+  <h1>Sign up</h1>
+  <form action="/auth" method="POST">
+    <div class="mb-3">
+      <label>Username</label>
+      <input
+        type="text"
+        required
+        class="form-control"
+        name="username"
+        placeholder="Username"
+      />
+    </div>
+    <div class="mb-3">
+      <label>Email</label>
+      <input
+        type="text"
+        required
+        placeholder="Email"
+        name="email"
+        class="form-control"
+      />
+    </div>
+    <div class="mb-3">
+      <label>Password</label>
+      <input
+        type="password"
+        required
+        placeholder="Password"
+        name="password"
+        class="form-control"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary w-100">Sign up</button>
+  </form>
+  <p class="text-center mt-3">Have an account? <a href="/login">Sign in</a></p>
+</div>
+<script>
+  const formElement = document.querySelector("form");
+  document.querySelector("form").addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(formElement);
+
+    const response = await fetch("/auth/", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(Object.fromEntries(formData)),
+    });
+
+    if (response.ok) {
+      window.location.href = "/login";
+    } else {
+      alert("Sign up failed");
+    }
+  });
+</script>
+{% endblock %}

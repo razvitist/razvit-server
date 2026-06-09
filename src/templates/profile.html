@@ -1,0 +1,407 @@
+{% extends 'base.html' %} {% block content %}
+<div class="container-fluid py-4">
+  <!-- Profile Header -->
+  <div class="text-center mb-4">
+    <div
+      class="d-inline-flex align-items-center justify-content-center rounded-circle bg-primary-subtle mb-3"
+      style="width: 100px; height: 100px"
+    >
+      <i class="bi bi-person-circle fs-1 text-primary"></i>
+    </div>
+    <h1 class="mb-1" id="header-username">Profile</h1>
+    <p class="text-body-secondary" id="header-email">Loading...</p>
+  </div>
+
+  <div class="row g-4">
+    <!-- Personal Information Card -->
+    <section class="col-lg-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-4">
+            <i class="bi bi-person-fill text-primary me-2"></i>Personal
+            Information
+          </h5>
+          <div class="row g-3">
+            <div class="col-12">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i class="bi bi-person-badge fs-5 text-body-secondary me-3"></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">Username</small>
+                  <strong id="username">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i
+                  class="bi bi-envelope-fill fs-5 text-body-secondary me-3"
+                ></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">Email</small>
+                  <strong id="email">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i class="bi bi-hash fs-5 text-body-secondary me-3"></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">User ID</small>
+                  <strong id="user-id">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i
+                  class="bi bi-calendar-check fs-5 text-body-secondary me-3"
+                ></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block"
+                    >Member Since</small
+                  >
+                  <strong id="created-at">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div
+                class="d-flex align-items-start p-3 bg-body-secondary rounded"
+              >
+                <i
+                  class="bi bi-info-circle fs-5 text-body-secondary me-3 mt-1"
+                ></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">About</small>
+                  <strong id="about">-</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Band Information Card -->
+    <section class="col-lg-6">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="card-title mb-4">
+            <i class="bi bi-fire text-primary me-2"></i>Band Information
+          </h5>
+          <div class="row g-3">
+            <div class="col-12">
+              <div class="p-3 bg-body-secondary rounded">
+                <div class="d-flex align-items-center mb-2">
+                  <i class="bi bi-key-fill fs-5 text-body-secondary me-2"></i>
+                  <small class="text-body-secondary">API Key</small>
+                </div>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    class="form-control"
+                    id="apikey"
+                    readonly
+                    value=""
+                  />
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    onclick="toggleApiKey()"
+                    title="Toggle visibility"
+                  >
+                    <i class="bi bi-eye" id="eye-icon"></i>
+                  </button>
+                  <button
+                    class="btn btn-outline-secondary"
+                    type="button"
+                    onclick="copyApiKey()"
+                    title="Copy to clipboard"
+                  >
+                    <i class="bi bi-clipboard"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i
+                  class="bi bi-database-fill-check fs-5 text-body-secondary me-3"
+                ></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">Active Pins</small>
+                  <strong id="pins">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i class="bi bi-archive-fill fs-5 text-body-secondary me-3"></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">Old Pins</small>
+                  <strong id="oldpins">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i class="bi bi-clock-fill fs-5 text-body-secondary me-3"></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">Schedule</small>
+                  <strong id="schedule">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i
+                  class="bi bi-clock-history fs-5 text-body-secondary me-3"
+                ></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">Last Time</small>
+                  <strong id="lasttime">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i class="bi bi-activity fs-5 text-body-secondary me-3"></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">Last Pin</small>
+                  <strong id="lastpin">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div
+                class="d-flex align-items-center p-3 bg-body-secondary rounded"
+              >
+                <i
+                  class="bi bi-battery-charging fs-5 text-body-secondary me-3"
+                ></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block">Battery</small>
+                  <strong id="battery">-</strong>
+                </div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div
+                class="d-flex align-items-start p-3 bg-body-secondary rounded"
+              >
+                <i
+                  class="bi bi-browser-firefox fs-5 text-body-secondary me-3 mt-1"
+                ></i>
+                <div class="flex-grow-1">
+                  <small class="text-body-secondary d-block"
+                    >Extension Settings</small
+                  >
+                  <strong id="extension-settings" class="text-break">-</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- YouTube Section -->
+    <section class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-4">
+            <i class="bi bi-youtube text-danger me-2"></i>YouTube Channels
+          </h5>
+          <div
+            class="d-flex align-items-center justify-content-between p-3 bg-body-secondary rounded mb-3"
+          >
+            <div>
+              <p class="mb-0" id="channels-count">
+                <i class="bi bi-collection-play me-2"></i>You added
+                <b>0</b> YouTube channels.
+              </p>
+            </div>
+            <button
+              id="toggle-channels-btn"
+              class="btn btn-primary"
+              onclick="toggleChannels()"
+              style="display: none"
+            >
+              <i class="bi bi-chevron-down me-1"></i>Show Channels
+            </button>
+          </div>
+          <div id="channels-container" style="display: none">
+            <p class="text-center text-body-secondary">Loading channels...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Actions Section -->
+    <section class="col-12">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title mb-4">
+            <i class="bi bi-shield-exclamation text-warning me-2"></i>Account
+            Actions
+          </h5>
+          <div class="d-flex gap-3 flex-wrap">
+            <button
+              onclick="logout()"
+              type="button"
+              class="btn btn-outline-danger"
+            >
+              <i class="bi bi-box-arrow-right me-2"></i>Logout
+            </button>
+            <button type="button" class="btn btn-danger">
+              <i class="bi bi-trash me-2"></i>Delete Account
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script src="{{ url_for('static', path='js/youtube.js') }}"></script>
+<script>
+  // Check authentication first
+  const token = localStorage.getItem("access_token");
+  if (!token) {
+    window.location.href = "/login";
+  }
+
+  function logout() {
+    localStorage.removeItem("access_token");
+    location.reload();
+  }
+
+  function toggleApiKey() {
+    const apikeyInput = document.getElementById("apikey");
+    const eyeIcon = document.getElementById("eye-icon");
+    if (apikeyInput.type === "password") {
+      apikeyInput.type = "text";
+      eyeIcon.className = "bi bi-eye-slash";
+    } else {
+      apikeyInput.type = "password";
+      eyeIcon.className = "bi bi-eye";
+    }
+  }
+
+  function copyApiKey() {
+    const apikeyInput = document.getElementById("apikey");
+    navigator.clipboard.writeText(apikeyInput.value);
+    const btn = event.target.closest("button");
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<i class="bi bi-check"></i>';
+    setTimeout(() => {
+      btn.innerHTML = originalHTML;
+    }, 1500);
+  }
+
+  function toggleChannels() {
+    const container = document.getElementById("channels-container");
+    const btn = document.getElementById("toggle-channels-btn");
+    const icon = btn.querySelector("i");
+    if (container.style.display === "none") {
+      container.style.display = "block";
+      btn.innerHTML = '<i class="bi bi-chevron-up me-1"></i>Hide Channels';
+    } else {
+      container.style.display = "none";
+      btn.innerHTML = '<i class="bi bi-chevron-down me-1"></i>Show Channels';
+    }
+  }
+
+  async function getData() {
+    const response = await fetch("/profile-data", {
+      method: "GET",
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    });
+
+    // Check if response is unauthorized
+    if (response.status === 401 || response.status === 403) {
+      localStorage.removeItem("access_token");
+      window.location.href = "/login";
+      return;
+    }
+
+    const data = await response.json();
+    console.log(data);
+
+    const responseYT = await fetch("/youtube/channels.json", {
+      method: "GET",
+    });
+    const dataYT = await responseYT.json();
+    console.log(dataYT);
+    const myChannels = [];
+    for (const channel of dataYT) {
+      if (channel.user_id == data.id) {
+        myChannels.push(channel);
+      }
+    }
+
+    // Update counter
+    const channelCount = myChannels.length;
+    document.getElementById("channels-count").innerHTML =
+      `<i class="bi bi-collection-play me-2"></i>You added <b>${channelCount}</b> YouTube channel${
+        channelCount !== 1 ? "s" : ""
+      }.`;
+
+    // Show toggle button if there are channels
+    if (channelCount > 0) {
+      document.getElementById("toggle-channels-btn").style.display =
+        "inline-block";
+    }
+
+    displayChannels(myChannels);
+
+    // Update header
+    document.getElementById("header-username").textContent =
+      data.username || "Profile";
+    document.getElementById("header-email").textContent = data.email || "";
+
+    // Update profile fields
+    document.getElementById("username").textContent = data.username || "-";
+    document.getElementById("email").textContent = data.email || "-";
+    document.getElementById("user-id").textContent = data.id || "-";
+    document.getElementById("created-at").textContent = data.created_at
+      ? new Date(data.created_at).toLocaleString()
+      : "-";
+    document.getElementById("about").textContent = data.about || "-";
+
+    document.getElementById("apikey").value = data.apikey || "";
+    document.getElementById("pins").textContent =
+      JSON.stringify(data.pins) || "-";
+    document.getElementById("oldpins").textContent =
+      JSON.stringify(data.oldpins) || "-";
+    document.getElementById("schedule").textContent =
+      JSON.stringify(data.schedule) || "-";
+    document.getElementById("lasttime").textContent = data.lasttime || "-";
+    document.getElementById("lastpin").textContent = data.lastpin || "-";
+    document.getElementById("battery").textContent = data.battery || "-";
+    document.getElementById("extension-settings").textContent =
+      data.extension_settings || "-";
+  }
+  getData();
+</script>
+{% endblock %}

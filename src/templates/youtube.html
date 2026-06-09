@@ -1,0 +1,372 @@
+{% extends 'base.html' %} {% block content %}
+<div class="mb-4">
+  <div
+    class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center gap-3"
+  >
+    <h1 class="mb-0">Educational YouTube Channels</h1>
+    <div class="d-flex flex-wrap gap-2">
+      <a
+        href="/youtube/channels.json"
+        download="youtube-channels.json"
+        class="btn btn-warning"
+      >
+        📥 Download JSON
+      </a>
+      <button
+        id="toggleAddForm"
+        class="btn btn-success"
+        onclick="toggleAddChannelForm()"
+      >
+        ➕ Add New Channel
+      </button>
+    </div>
+  </div>
+</div>
+
+<section
+  id="addChannelCard"
+  class="card mb-3 bg-body-tertiary"
+  style="display: none"
+>
+  <div class="card-body">
+    <h5 class="card-title">Add New Channel</h5>
+    <form id="addChannelForm" onsubmit="submitChannel(event)">
+      <div class="row">
+        <div class="col-md-6 mb-2">
+          <label for="channel" class="form-label">Channel URL or ID:</label>
+          <input
+            type="text"
+            id="channel"
+            name="channel"
+            class="form-control"
+            placeholder="https://www.youtube.com/channel/..."
+            required
+          />
+        </div>
+        <div class="col-md-3 mb-2">
+          <label for="lang" class="form-label">Language:</label>
+          <select id="lang" name="lang" class="form-select" required>
+            <option value="ru">🇷🇺 Russian</option>
+            <option value="en">🇺🇸 English</option>
+            <option value="es">🇪🇸 Spanish</option>
+            <option value="de">🇩🇪 German</option>
+            <option value="fr">🇫🇷 French</option>
+            <option value="pt">🇧🇷 Portuguese</option>
+          </select>
+        </div>
+        <div class="col-md-3 mb-2">
+          <label for="tags" class="form-label">Tags (comma-separated):</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            class="form-control"
+            placeholder="Python,Math"
+          />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 mb-2">
+          <label class="form-label">Click to add tags:</label>
+          <div id="addTagBadges" class="d-flex flex-wrap gap-2"></div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary">Add Channel</button>
+    </form>
+  </div>
+</section>
+
+<div class="card mb-3 bg-body-tertiary">
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6 mb-2">
+        <label for="filterLang" class="form-label">Filter by Language:</label>
+        <select id="filterLang" class="form-select" onchange="filterAndSort()">
+          <option value="">All Languages</option>
+          <option value="ru">🇷🇺 Russian</option>
+          <option value="en">🇺🇸 English</option>
+          <option value="es">🇪🇸 Spanish</option>
+          <option value="de">🇩🇪 German</option>
+          <option value="fr">🇫🇷 French</option>
+          <option value="pt">🇧🇷 Portuguese</option>
+        </select>
+      </div>
+      <div class="col-md-6 mb-2">
+        <label for="sortBy" class="form-label">Sort by:</label>
+        <select id="sortBy" class="form-select" onchange="filterAndSort()">
+          <option value="subs">Subscribers (High to Low)</option>
+          <option value="subs_asc">Subscribers (Low to High)</option>
+          <option value="views">Views (High to Low)</option>
+          <option value="views_asc">Views (Low to High)</option>
+          <option value="videos">Videos (High to Low)</option>
+          <option value="videos_asc">Videos (Low to High)</option>
+          <option value="title">Title (A-Z)</option>
+        </select>
+      </div>
+    </div>
+    <div class="row mt-3">
+      <div class="col-12">
+        <label class="form-label">Filter by Tag:</label>
+        <div id="tagBadges" class="d-flex flex-wrap gap-2"></div>
+      </div>
+    </div>
+    <div class="row mt-2">
+      <div class="col-12">
+        <p id="statsText" class="mb-0"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="channels-container">
+  <p>Loading channels...</p>
+</div>
+
+<script src="{{ url_for('static', path='js/youtube.js') }}"></script>
+<script>
+  let allChannels = [];
+  let allTags = new Set();
+  let selectedTag = "";
+  let selectedAddTags = new Set();
+
+  function toggleAddChannelForm() {
+    const card = document.getElementById("addChannelCard");
+    const btn = document.getElementById("toggleAddForm");
+    if (card.style.display === "none") {
+      card.style.display = "block";
+      btn.textContent = "❌ Cancel";
+      btn.className = "btn btn-secondary";
+    } else {
+      card.style.display = "none";
+      btn.textContent = "➕ Add New Channel";
+      btn.className = "btn btn-success";
+    }
+  }
+
+  async function submitChannel(event) {
+    event.preventDefault();
+
+    const formData = new FormData();
+    formData.append("channel", document.getElementById("channel").value);
+    formData.append("lang", document.getElementById("lang").value);
+    formData.append("tags", document.getElementById("tags").value);
+
+    const token = localStorage.getItem("access_token");
+
+    try {
+      const response = await fetch("/youtube/add", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        body: formData,
+      });
+
+      if (response.ok) {
+        alert("Channel added successfully!");
+        document.getElementById("addChannelForm").reset();
+        selectedAddTags.clear();
+        updateAddBadgeStyles();
+        toggleAddChannelForm();
+        loadChannels();
+      } else if (response.status === 401) {
+        alert("You must be logged in to add channels.");
+      } else {
+        alert("Error adding channel. Please try again.");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      alert("Error adding channel. Please try again.");
+    }
+  }
+
+  function updateStats(channels) {
+    const total = channels.length;
+    const byLang = {};
+
+    channels.forEach((ch) => {
+      byLang[ch.lang] = (byLang[ch.lang] || 0) + 1;
+    });
+
+    const ruCount = byLang["ru"] || 0;
+    const enCount = byLang["en"] || 0;
+    const otherCount = total - ruCount - enCount;
+
+    document.getElementById("statsText").innerHTML =
+      `<strong>${total}</strong> channels total. 
+      <strong>${ruCount}</strong> Russian, 
+      <strong>${enCount}</strong> English, 
+      <strong>${otherCount}</strong> other.`;
+  }
+
+  function filterAndSort() {
+    const langFilter = document.getElementById("filterLang").value;
+    const tagFilter = selectedTag;
+    const sortBy = document.getElementById("sortBy").value;
+
+    let filtered = allChannels.filter((channel) => {
+      const langMatch = !langFilter || channel.lang === langFilter;
+      const tagMatch = !tagFilter || channel.tags.includes(tagFilter);
+      return langMatch && tagMatch;
+    });
+
+    // Sort
+    filtered.sort((a, b) => {
+      switch (sortBy) {
+        case "subs":
+          return b.subs - a.subs;
+        case "subs_asc":
+          return a.subs - b.subs;
+        case "views":
+          return b.views - a.views;
+        case "views_asc":
+          return a.views - b.views;
+        case "videos":
+          return b.video_count - a.video_count;
+        case "videos_asc":
+          return a.video_count - b.video_count;
+        case "title":
+          return a.title.localeCompare(b.title);
+        default:
+          return 0;
+      }
+    });
+
+    updateStats(filtered);
+    displayChannels(filtered);
+  }
+
+  function updateAddTags() {
+    const tagsInput = document.getElementById("tags");
+    const tagsArray = Array.from(selectedAddTags);
+    tagsInput.value = tagsArray.join(",");
+  }
+
+  function updateBadgeStyles() {
+    document.querySelectorAll("#tagBadges .badge").forEach((badge) => {
+      if (badge.dataset.tag === selectedTag) {
+        badge.style.backgroundColor = badge.dataset.color;
+        badge.style.border = `1px solid ${badge.dataset.color}`;
+        badge.style.color = "#ffffff";
+        badge.style.fontWeight = "600";
+        badge.style.transform = "scale(1.05)";
+      } else {
+        badge.style.backgroundColor = "transparent";
+        badge.style.border = `1px solid ${badge.dataset.color}`;
+        badge.style.color = badge.dataset.color;
+        badge.style.fontWeight = "500";
+        badge.style.transform = "scale(1)";
+      }
+    });
+  }
+
+  function updateAddBadgeStyles() {
+    document.querySelectorAll("#addTagBadges .badge").forEach((badge) => {
+      const tag = badge.dataset.tag;
+      if (selectedAddTags.has(tag)) {
+        badge.style.backgroundColor = badge.dataset.color;
+        badge.style.border = `1px solid ${badge.dataset.color}`;
+        badge.style.color = "#ffffff";
+        badge.style.fontWeight = "600";
+      } else {
+        badge.style.backgroundColor = "transparent";
+        badge.style.border = `1px solid ${badge.dataset.color}`;
+        badge.style.color = badge.dataset.color;
+        badge.style.fontWeight = "500";
+      }
+    });
+  }
+
+  async function loadChannels() {
+    try {
+      const response = await fetch("/youtube/channels.json");
+      allChannels = await response.json();
+
+      // Extract all unique tags with frequency count
+      const tagFrequency = {};
+      allChannels.forEach((channel) => {
+        channel.tags.forEach((tag) => {
+          allTags.add(tag);
+          tagFrequency[tag] = (tagFrequency[tag] || 0) + 1;
+        });
+      });
+
+      // Get colors from youtube.js
+      const tagColors = typeof colors !== "undefined" ? colors : {};
+
+      // Populate tag badges for adding new channel
+      const addTagBadgesContainer = document.getElementById("addTagBadges");
+      Array.from(allTags)
+        .sort((a, b) => tagFrequency[b] - tagFrequency[a])
+        .forEach((tag) => {
+          const badge = document.createElement("button");
+          badge.type = "button";
+          badge.className = "badge";
+          badge.style.cursor = "pointer";
+          badge.style.backgroundColor = "transparent";
+          badge.style.border = `1px solid ${tagColors[tag] || "#6c757d"}`;
+          badge.style.color = tagColors[tag] || "#6c757d";
+          badge.style.transition = "all 0.2s ease";
+          badge.style.fontWeight = "500";
+          badge.textContent = tag;
+          badge.onclick = () => {
+            if (selectedAddTags.has(tag)) {
+              selectedAddTags.delete(tag);
+            } else {
+              selectedAddTags.add(tag);
+            }
+            updateAddBadgeStyles();
+            updateAddTags();
+          };
+          badge.dataset.tag = tag;
+          badge.dataset.color = tagColors[tag] || "#6c757d";
+          addTagBadgesContainer.appendChild(badge);
+        });
+
+      // Populate tag badges, sorted by popularity (frequency)
+      const tagBadgesContainer = document.getElementById("tagBadges");
+      Array.from(allTags)
+        .sort((a, b) => tagFrequency[b] - tagFrequency[a])
+        .forEach((tag) => {
+          const badge = document.createElement("button");
+          badge.type = "button";
+          badge.className = "badge";
+          badge.style.cursor = "pointer";
+          badge.style.backgroundColor = "transparent";
+          badge.style.border = `1px solid ${tagColors[tag] || "#6c757d"}`;
+          badge.style.color = tagColors[tag] || "#6c757d";
+          badge.style.transition = "all 0.2s ease";
+          badge.style.fontWeight = "500";
+          badge.textContent = `${tag} (${tagFrequency[tag]})`;
+          badge.onclick = () => {
+            selectedTag = selectedTag === tag ? "" : tag;
+            updateBadgeStyles();
+            filterAndSort();
+          };
+          badge.dataset.tag = tag;
+          badge.dataset.color = tagColors[tag] || "#6c757d";
+          tagBadgesContainer.appendChild(badge);
+        });
+
+      // Allow manual tag input to update badge selection
+      const tagsInput = document.getElementById("tags");
+      tagsInput.addEventListener("input", () => {
+        const tags = tagsInput.value
+          .split(",")
+          .map((t) => t.trim())
+          .filter((t) => t);
+        selectedAddTags = new Set(tags);
+        updateAddBadgeStyles();
+      });
+
+      filterAndSort();
+    } catch (error) {
+      console.error("Error loading channels:", error);
+      document.getElementById("channels-container").innerHTML =
+        '<p class="text-danger">Error loading channels.</p>';
+    }
+  }
+
+  loadChannels();
+</script>
+{% endblock %}

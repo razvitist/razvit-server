@@ -1,0 +1,733 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>band.razvit</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body>
+    <!-- <nav class="navbar bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+      <img src="/static/img/logo.svg" alt="Bootstrap" width="30" height="24" class="d-inline-block align-text-top">
+      band.razvit
+    </a>
+  </div>
+</nav> -->
+
+    <!-- https://getbootstrap.com/docs/5.3/components/navbar/ -->
+    <!-- https://getbootstrap.com/docs/5.3/examples/headers/ -->
+    <div class="container">
+      <header
+        class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom"
+      >
+        <a
+          href="/"
+          class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none"
+        >
+          <img
+            class="bi me-2"
+            width="40"
+            height="32"
+            src="/static/img/logo.svg"
+          />
+          <!-- <svg class="bi me-2" width="40" height="32"><use xlink:href="/static/img/logo.svg"></use></svg> -->
+          <span class="fs-4">band.razvit</span>
+        </a>
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <a href="/" class="nav-link link-body-emphasis" aria-current="page"
+              >Главная</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link link-body-emphasis">Купить</a>
+          </li>
+          <li class="nav-item">
+            <a href="/pages/tutorial" class="nav-link link-body-emphasis"
+              >Инструкция</a
+            >
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link link-body-emphasis">Применения</a>
+          </li>
+          <!-- <li class="nav-item"><a href="#" class="nav-link link-body-emphasis">Статьи</a></li> -->
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle link-body-emphasis"
+              href="#"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Статьи
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Ошибки</a></li>
+              <li><a class="dropdown-item" href="#">Ремешок</a></li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link link-body-emphasis">Войти</a>
+          </li>
+        </ul>
+      </header>
+
+      <div class="row row-cols-1 row-cols-sm-2">
+        <div class="col d-flex align-items-center">
+          <div>
+            <h1 class="text-body-emphasis">
+              Браслет, который сделает тебя лучше
+            </h1>
+            <p>
+              Браслет подключается по Wi-Fi и проверяет делаешь ли ты что-нибудь
+              полезное. Если ты не учишься / работаешь / тренируешься, то
+              браслет начинает нагреваться.
+            </p>
+            <a class="btn btn-outline-light btn-lg" href="/buy">Купить</a>
+            <!-- <a class="btn btn-outline-secondary btn-lg" href="/pages/diy">DIY</a> -->
+            <!-- <button class="rainbow-color">Купить razvit band</button> -->
+          </div>
+        </div>
+        <div class="col rainbow-imgs">
+          <!-- <div class="slider"> -->
+          <!-- <img src="/static/img/band-blue.png" class="slide">
+      <img src="/static/img/band-green.png" class="slide">
+      <img src="/static/img/band-red.png" class="slide"> -->
+          <img src="/static/img/band-blue.webp" class="rainbow-img" />
+          <img src="/static/img/band-green.webp" class="rainbow-img" />
+          <img src="/static/img/band-red.webp" class="rainbow-img" />
+          <!-- <div style="background-color: blue; width:100px; height: 100px;" class="slide"></div>
+      <div style="background-color: lime; width:100px; height: 100px;" class="slide"></div>
+      <div style="background-color: red; width:100px; height: 100px;" class="slide"></div> -->
+          <!-- </div> -->
+        </div>
+      </div>
+
+      <!-- скриншоты расширения на ноуте? -->
+      <div class="row align-items-md-stretch my-5">
+        <div class="col-md-6 my-2">
+          <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+            <h2>Расширение</h2>
+            <p>
+              Ты можешь установить расширение, которое контролирует какие сайты
+              ты посещаешь и какие видео смотрите. Расширение для браузера
+              отслеживает, совершает ли человек полезные действия, и отправляет
+              эти данные на браслет. Если ты хочешь изучить Python, до просто
+              вбейте слово в расширение и браслет будет поощерять просмотр видео
+              по Python и посещение сайтов по программированию.
+            </p>
+            <!-- , удаляет отвлекающие элементы со страницы, выделяет хорошие каналы и видео на YouTube, выделяет хорошие сайты в поиске Google  -->
+            <a class="btn btn-outline-light" href="#">Установить расширение</a>
+          </div>
+        </div>
+        <div class="col-md-6 my-2">
+          <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+            <!-- text-bg-dark -->
+            <h2>Программа</h2>
+            <p>
+              Ты можешь установить программу на свой компьютер, которая будет
+              контролировать какими программами ты пользуетесь. Если ты
+              дизайнер, то можете вбить Photoshop и Illustrator, тогда браслет
+              будет помогать не отвлекаться от работы на соц-сети, например. А
+              если отвлечёшься, то быстро вернёт к работе с помощью нагрева.
+              Программа работает на Windows, MacOS.
+            </p>
+            <a class="btn btn-outline-light" href="#">Скачать для Windows</a>
+            <a class="btn btn-outline-light" href="#">Скачать для MacOS</a>
+            <!-- btn-outline-secondary -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row row-cols-1 row-cols-md-2 my-5">
+        <div class="col d-flex align-items-center my-2">
+          <!-- col-6 -->
+          <div>
+            <h1>Веб-интерфейс</h1>
+            <p>
+              Настраивай браслет с любого устройства в удобном веб-интерфейсе.
+            </p>
+            <a class="btn btn-outline-light" href="/pages/tutorial"
+              >Инструкция</a
+            >
+          </div>
+        </div>
+        <!-- col-3 -->
+        <div class="col row my-2">
+          <div class="col">
+            <img src="/static/img/web-settings.png" class="img-fluid" />
+          </div>
+          <div class="col">
+            <img src="/static/img/web-main.png" class="img-fluid" />
+          </div>
+        </div>
+      </div>
+      <!-- скриншоты веб-интерфейса в рамке телефона / ноутбука -->
+
+      <!-- row-cols-1 row-cols-md-2-->
+      <div class="row my-5">
+        <div class="col-4">
+          <img src="/static/img/band-runner.webp" class="img-fluid" />
+        </div>
+        <div class="col-8 d-flex align-items-center">
+          <div>
+            <h1>Тренировки</h1>
+            <p>
+              Браслет может также применятся и для занятий спортом. С помощью
+              датчика пульса можно контролировать бег и другие виды
+              кардионагрузок. Если пульс опускается ниже определённого порога,
+              то браслет нагревается, пока пульс не повысится.
+            </p>
+            <p>Инструкции по подключению датчиков пульса:</p>
+            <!-- Инструкции по подключению <a href="">Apple Watch</a>, <a href="">Amazfit</a>, <a href="">Bluetooth датчика пульса</a>. -->
+            <a class="btn btn-outline-light" href="#">Apple Watch</a>
+            <a class="btn btn-outline-light" href="#">Amazfit</a>
+            <a class="btn btn-outline-light" href="#"
+              >Bluetooth датчик пульса</a
+            >
+            <!-- Например, его можно подключить к велотренажёру. Для этого я использовал датчик Холла и NodeMCU. Датчик Холла реагирует на магнитное поле, поэтому, если прикрепить магнит на колесо, то он будет срабатывать на каждом обороте. NodeMCU нужен, чтобы отправлять скорость на браслет. Если скорость опускается ниже определённого порога, то браслет нагревается, пока не разгонишься. -->
+          </div>
+        </div>
+      </div>
+
+      <!-- уменьшить ширину карнтинки на малых устройствах -->
+      <div
+        class="position-relative text-center text-muted bg-body border rounded-5 my-5"
+      >
+        <div class="pt-5">
+          <h1 class="text-body-emphasis">Зарядка</h1>
+          <p class="col-lg-6 mx-auto mb-4">
+            Браслет заряжается с помощью USB-C. Аккумулятор на 300 mAh.<br />
+            На обратной стороне браслета расположен нагреватель.
+          </p>
+        </div>
+        <img src="/static/img/band-usb-c-thin.webp" class="img-fluid" />
+      </div>
+
+      <!-- <div class="p-5 text-center bg-body-tertiary rounded-3 my-5">
+  <img src="/static/img/logo.svg" class="bi mt-4 mb-3" width="100" height="100">
+  <h1 class="text-body-emphasis">Jumbotron with icon</h1>
+  <p class="col-lg-8 mx-auto fs-5 text-muted">
+    This is a custom jumbotron featuring an SVG image at the top, some longer text that wraps early thanks to a responsive <code>.col-*</code> class, and a customized call to action.
+  </p>
+  <div class="d-inline-flex gap-2 mb-5">
+    <button class="d-inline-flex align-items-center btn btn-primary btn-lg px-4 rounded-pill" type="button">
+      Call to action
+      <svg class="bi ms-2" width="24" height="24"><use xlink:href="#arrow-right-short"></use></svg>
+    </button>
+    <button class="btn btn-outline-secondary btn-lg px-4 rounded-pill" type="button">
+      Secondary link
+    </button>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="p-5 text-center bg-body-tertiary rounded-3">
+    <h1 class="text-body-emphasis">Basic jumbotron</h1>
+    <p class="lead">
+      This is a simple Bootstrap jumbotron that sits within a <code>.container</code>, recreated with built-in utility classes.
+    </p>
+  </div>
+</div> -->
+
+      <div class="row row-cols-1 row-cols-md-2 my-5">
+        <div class="col">
+          <img src="/static/img/pcb-battery.png" class="img-fluid" />
+        </div>
+        <div class="col d-flex align-items-center">
+          <div>
+            <h1>Открытый код</h1>
+            <p>
+              Браслет сделан на основе ESP32. Благодаря этому ты можешь написать
+              свой код для браслета на Arduino.
+            </p>
+            <a class="btn btn-outline-light" href="#">Код на GitHub</a>
+          </div>
+        </div>
+      </div>
+
+      <h1>FAQ</h1>
+      <p>Часто задаваемые вопросы.</p>
+      <!-- get from pavlok as example: -->
+      <!-- <h4>Как мне настроить браслет?</h4>
+<p>Следуй <a href="pages/tutorial">этим инструкциям</a>.</p>
+<h4>Могу ли я настроить мощность нагрева?</h4>
+<p>Да, это <a href="">настраивается</a> в веб-интерфейсе браслета.</p>
+<h4>Могу ли я изменить размер браслета?</h4>
+<p>Да, это <a href="">можно</a> сделать.</p> -->
+
+      <div class="accordion" id="accordionFAQ">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse-1"
+              aria-expanded="true"
+              aria-controls="collapse-1"
+            >
+              Как работает браслет?
+            </button>
+          </h2>
+          <div
+            id="collapse-1"
+            class="accordion-collapse collapse show"
+            data-bs-parent="#accordionFAQ"
+          >
+            <div class="accordion-body">
+              Браслет настраивается с помощью удобного веб-интерфейса. После
+              настройки подключается к интернету через Wi-Fi. Подключение к API
+              различных сервисов позволяет контролировать выполнение многих
+              задач. Если задача не выполняется, то браслет начинает
+              нагреваться, тем самым стимулируя пользователя к работе или учёбе.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse-2"
+              aria-expanded="true"
+              aria-controls="collapse-2"
+            >
+              Насколько сильно нагревается браслет?
+            </button>
+          </h2>
+          <div
+            id="collapse-2"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFAQ"
+          >
+            <div class="accordion-body">
+              Мощность нагрева можно <a href="">настроить</a> в веб-интерфейсе
+              браслета. Максимальной мощности достаточно, чтобы получить ожог.
+              Максимальная мощность не подбиралась по уровню безопасности, тебе
+              надо самому подобрать подходящую для тебя мощность.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse-3"
+              aria-expanded="true"
+              aria-controls="collapse-3"
+            >
+              Как долго браслет работает от аккумулятора?
+            </button>
+          </h2>
+          <div
+            id="collapse-3"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFAQ"
+          >
+            <div class="accordion-body">
+              <p>
+                Время работы браслета очень сильно зависит от способа
+                применения. В случае, если браслет используется каждый день для
+                тренировки или изучения чего-либо в течении часа, то браслет
+                будет работать неделю и более. Если же браслет должен
+                контролировать деятельность человека в течении всего дня, то его
+                хватает на день и лучше его в конце дня ставить на зарядку, как
+                это делают пользователи Apple Watch. Если не хватает
+                аккумулятора, можешь посмотреть
+                <a href="">рекомендации по экономии энергии</a>.
+              </p>
+              Браслет при работе с Wi-Fi тратит очень много энергии, поэтому
+              большую часть времени он находится в режиме глубокого сна, который
+              тратит очень мало энергии, и просыпается, чтобы получить данные из
+              интернета и либо начать нагреваться либо заснуть опять. Это надо
+              учитывать, если ты хочешь написать свою программу для браслета.
+              Можешь посмотреть
+              <a href="">информацию об экономии энергии для разработчиков</a>.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse-4"
+              aria-expanded="true"
+              aria-controls="collapse-4"
+            >
+              Нельзя ли просто снять браслет, когда он начнёт нагреваться?
+            </button>
+          </h2>
+          <div
+            id="collapse-4"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFAQ"
+          >
+            <div class="accordion-body">
+              <p>Для этого есть несколько решений.</p>
+              <p>
+                Не снимать браслет на силе воли или <a href="">обещании</a>.
+                Выполнить задачу просто не снимать браслет значительно легче,
+                чем весь день контролировать силой воли, чем сейчас заниматься.
+                Можно сказать, что силу воли нужно будет прекладывать не ко всем
+                действиям, которые теперь контролирует браслет, а только к
+                одному узлу, не снимать сам браслет.
+              </p>
+              <p>
+                Можно произвести некоторую <a href="">модернизацию</a> браслета,
+                которые сильно усложнят его снятие.
+              </p>
+              Можно подключить дополнительные возможности контроля используется
+              ли браслет. Для этого добавлена специальная функция на сайт,
+              которая позволяет узнавать, когда браслет последний раз выходил на
+              связь и выполняются ли обязаности. При обращении на него
+              вовзращается либо 0, либо 1. Я, например, подключил эту систему к
+              <a href="">программе для ноутбука</a>, которая включает сирену в
+              случае, если браслет не используется. Подключил к
+              <a href="">отдельному устройству</a>, которое начинает пищать. И к
+              <a href="">роутеру</a>, который сильно сильно понижает скорость
+              интернета.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse-5"
+              aria-expanded="true"
+              aria-controls="collapse-5"
+            >
+              Можно ли перепрограммировать браслет?
+            </button>
+          </h2>
+          <div
+            id="collapse-5"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFAQ"
+          >
+            <div class="accordion-body">
+              Да, можно. Код Open Source и написан на Arduino. Загрузить
+              прошивку можно Over-the-air в web-интерфейсе браслета по
+              <a href="pages/ota">инструкции</a>.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse-6"
+              aria-expanded="false"
+              aria-controls="collapse-6"
+            >
+              Могу ли я поменять ремешок браслета?
+            </button>
+          </h2>
+          <div
+            id="collapse-6"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFAQ"
+          >
+            <div class="accordion-body">
+              Да, это можно сделать, браслет совместим с определёнными ремешками
+              для Mi Band 7 от MiJobs.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button
+              class="accordion-button collapsed"
+              type="button"
+              data-bs-toggle="collapse"
+              data-bs-target="#collapse-7"
+              aria-expanded="false"
+              aria-controls="collapse-7"
+            >
+              Есть ли другие подобные устройства?
+            </button>
+          </h2>
+          <div
+            id="collapse-7"
+            class="accordion-collapse collapse"
+            data-bs-parent="#accordionFAQ"
+          >
+            <div class="accordion-body">
+              Единственным похожим устройством является браслет Pavlok, который
+              бьёт током, но он не доставляется в Россию из-за санкций,
+              сравнение Razvit Band и Pavlok можно посмотреть на этой
+              <a href="pages/pavlok">странице</a>.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <footer>
+  band.razvit.org 2025
+</footer> -->
+
+      <!-- https://getbootstrap.com/docs/5.3/examples/footers/ -->
+      <!-- <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 mt-5 mb-2 border-top">
+  <div class="col mb-3">
+    <a href="/" class="d-flex align-items-center mb-3 link-body-emphasis text-decoration-none">
+      <img class="bi me-2" width="40" height="32" src="/static/img/logo.svg">
+    </a>
+    <p class="text-body-secondary">© 2025</p>
+  </div>
+
+  <div class="col mb-3">
+
+  </div>
+
+  <div class="col mb-3">
+    <h5>Статьи</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+    </ul>
+  </div>
+
+  <div class="col mb-3">
+    <h5>Статьи</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+    </ul>
+  </div>
+
+  <div class="col mb-3">
+    <h5>Статьи</h5>
+    <ul class="nav flex-column">
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Home</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Features</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">Pricing</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">FAQs</a></li>
+      <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-body-secondary">About</a></li>
+    </ul>
+  </div>
+</footer> -->
+
+      <!-- <footer class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top">
+  <p class="col-md-4 mb-0 text-body-secondary">© 2025 band.razvit</p>
+
+  <a href="/" class="col-md-4 d-flex align-items-center justify-content-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+    <img class="bi me-2" width="40" height="32" src="/static/img/logo.svg">
+  </a>
+
+  <ul class="nav col-md-4 justify-content-end">
+    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Home</a></li>
+    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Features</a></li>
+    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Pricing</a></li>
+    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">FAQs</a></li>
+    <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">About</a></li>
+  </ul>
+</footer> -->
+
+      <footer
+        class="d-flex flex-wrap justify-content-center align-items-center py-5 mb-2 mt-5 border-top"
+      >
+        <a href="/"
+          ><img
+            class="bi me-2"
+            width="40"
+            height="32"
+            src="/static/img/logo.svg"
+        /></a>
+        <p class="mb-0 text-body-secondary">© 2025 band.razvit</p>
+      </footer>
+    </div>
+
+    <!-- <canvas id="bg"></canvas> -->
+    <!-- filter: hue-rotate(90deg); -->
+    <!-- Create interactive heat system with vue it is easier with equations or api or just clicking -->
+    <style>
+      #bg {
+        width: 500px;
+        height: 500px;
+      }
+      .rainbow-imgs {
+        position: relative;
+        height: 700px;
+        width: 600px;
+        /* height: 500px;
+  width: 400px; */
+
+        /* background: radial-gradient(circle at 25% 75%, red, black 30%); */
+        /* background-color: #9005;
+  border-radius: 50%;
+  box-shadow: 0 0 50px 70px #9005; */
+      }
+      .rainbow-img {
+        position: absolute;
+        opacity: 1;
+        animation: rainbow-img-animation 12s infinite linear;
+
+        max-width: 100%;
+        max-height: 100%;
+        right: 0px;
+        /* linear */
+        /* mix-blend-mode: screen; */
+      }
+      .rainbow-img:nth-child(1) {
+        animation-delay: -8s;
+      }
+      .rainbow-img:nth-child(2) {
+        animation-delay: -4s;
+      }
+      .rainbow-img:nth-child(3) {
+        animation-delay: 0s;
+      }
+      @keyframes rainbow-img-animation {
+        0% {
+          opacity: 1;
+          z-index: 2;
+        }
+        16.6% {
+          opacity: 0;
+          z-index: 2;
+        }
+        33% {
+          opacity: 0;
+          z-index: 1;
+        }
+        33.3% {
+          opacity: 1;
+          z-index: 1;
+        }
+        66.6% {
+          opacity: 1;
+          z-index: 1;
+        }
+        67% {
+          opacity: 0;
+          z-index: 1;
+        }
+        83.2% {
+          opacity: 0;
+          z-index: 2;
+        }
+        100% {
+          opacity: 1;
+          z-index: 2;
+        }
+      }
+      /* 0% { opacity: 1; z-index: -1; }
+  33.3% { opacity: 1; z-index: -1; }
+  33.4% { opacity: 0; z-index: 1; }
+  50% { opacity: 0; }
+  66.6% { opacity: 1; }
+  83.1% { opacity: 0; }
+  100% { opacity: 0; z-index: 1; } */
+      /* 0% { opacity: 1; }
+  33% { opacity: 0; }
+  66% { opacity: 0; }
+  100% { opacity: 1; } */
+
+      .rainbow-color {
+        animation: rainbow-color-animation 12s infinite linear;
+        background: #111;
+        border-width: 1px;
+        border-style: solid;
+      }
+      @keyframes rainbow-color-animation {
+        0% {
+          color: Tomato;
+          border-color: Tomato;
+        }
+        16.6% {
+          color: MediumSeaGreen;
+          border-color: MediumSeaGreen;
+        }
+        33.3% {
+          color: DodgerBlue;
+          border-color: DodgerBlue;
+        }
+        50% {
+          color: Tomato;
+          border-color: Tomato;
+        }
+        66.6% {
+          color: MediumSeaGreen;
+          border-color: MediumSeaGreen;
+        }
+        83.2% {
+          color: DodgerBlue;
+          border-color: DodgerBlue;
+        }
+        100% {
+          color: Tomato;
+          border-color: Tomato;
+        }
+        /* 0% { background: Tomato; }
+  33% { background: MediumSeaGreen; }
+  66% { background: DodgerBlue; }
+  100% { background: Tomato; } */
+        /* 0% { background: Tomato; }
+  16.6% { background: MediumSeaGreen; }
+  33.3% { background: DodgerBlue; }
+  50% { background: Tomato; }
+  66.6% { background: MediumSeaGreen; }
+  83.2% { background: DodgerBlue; }
+  100% { background: Tomato; } */
+        /* important not working in keyframes, fix style */
+      }
+
+      /* @keyframes huex {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+} */
+    </style>
+
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+  // import * as THREE from 'three'
+  console.log(THREE)
+  const scene = new THREE.Scene()
+  // const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000)
+  const camera = new THREE.PerspectiveCamera(75, 1, 0.1, 1000)
+  const renderer = new THREE.WebGLRenderer({canvas: document.querySelector('#bg')})
+  renderer.setSize(1000, 1000)
+  camera.position.setZ(30)
+  const geometry = new THREE.TorusGeometry(10, 3, 16, 100)
+  const material = new THREE.MeshBasicMaterial({color: 0xFF6347, wireframe: true})
+  const torus = new THREE.Mesh(geometry, material)
+  scene.add(torus)
+  renderer.render(scene, camera)
+</script> -->
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

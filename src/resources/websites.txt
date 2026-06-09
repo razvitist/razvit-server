@@ -1,0 +1,81 @@
+razvit.org
+band.razvit.org
+=== learn ===
+metanit.com
+tproger.ru
+w3schools.com
+foxford.ru
+openedu.ru
+codecademy.com
+stepik.org
+sololearn.com
+udemy.com
+coursera.org
+khanacademy.org
+randomnerdtutorials.com
+freecodecamp.org
+geeksforgeeks.org
+quizlet.com
+skysmart.ru
+sky.pro
+=== docs ===
+readthedocs.io
+fastapi.tiangolo.com
+learn.microsoft.com
+learn.javascript.ru
+docs.swift.org
+developer.apple.com
+developer.mozilla.org
+developer.chrome.com
+developers.google.com
+=== english ===
+duolingo.com
+skyeng.ru
+englex.ru
+englishdom.com
+puzzle-english.com
+lingualeo.com
+busuu.com
+=== work ===
+wordpress.org
+== hosting ==
+beget.com
+timeweb.com
+timeweb.cloud
+sprinthost.ru
+hostland.ru
+selectel.ru
+hostinger.com
+fozzy.ru
+sweb.ru
+reg.ru
+firstvds.ru
+ruvds.com
+nic.ru
+aws.amazon.com
+azure.microsoft.com
+cloud.google.com
+cloud.yandex.ru
+cloud.ru
+render.com
+heroku.com
+firebase.google.com
+== git ==
+gitlab.com
+github.com
+=== forums ===
+stackoverflow.com
+stackexchange.com
+superuser.com
+=== python ===
+python.org
+pypi.org
+matplotlib.org
+=== other ===
+skillbox.ru
+education.yandex.ru
+practicum.yandex.ru
+academy.yandex.ru
+lyceum.yandex.ru
+dev.to
+alpinadigital.ru
