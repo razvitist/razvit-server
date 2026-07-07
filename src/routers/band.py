@@ -276,7 +276,7 @@ async def api(apikey: str, db: db_session):
   now = datetime.now()  # .replace(tzinfo=timezone.utc)
   user.lasttime = int(time.time())
   t = 0
-  minutes = now.hour * 60 + now.minute + 180
+  minutes = now.hour * 60 + now.minute
   weekday = now.weekday()
   for i in user.schedule:
     if i[1] < minutes < i[2] and i[3][weekday]:
@@ -331,8 +331,8 @@ async def gestapo(apikey: str, db: db_session):
   if (
     int(time.time()) - user.lasttime > user.lastpin + 20 or user.oldpins['red'] > 20
   ) and (
-    10 * 60 < now.hour * 60 + now.minute + 180 < 24 * 60  # 23 * 60
-    or (now.hour * 60 + now.minute + 180) % 1440 < 2 * 60  # 2 * 60
+    10 * 60 < now.hour * 60 + now.minute < 24 * 60  # 23 * 60
+    or (now.hour * 60 + now.minute) % 1440 < 2 * 60  # 2 * 60
   ):
     return 1
   return 0
