@@ -2,6 +2,7 @@ services:
   nginx:
     image: nginx
     restart: unless-stopped
+    command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
     ports:
       - '80:80'
       - '443:443'
@@ -15,13 +16,14 @@ services:
       - app
   certbot:
     image: certbot/certbot
+    restart: unless-stopped
     volumes:
       - /etc/letsencrypt:/etc/letsencrypt
       - ./certbot-www:/var/www/certbot
     entrypoint: >
-      sh -c "while :; do
+      sh -c "trap exit TERM; while :; do
         certbot renew --webroot -w /var/www/certbot;
-        sleep 12h;
+        sleep 12h & wait $${!};
       done"
   db:
     image: postgres
