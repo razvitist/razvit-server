@@ -142,7 +142,7 @@ async def get_all(apikey: str, db: db_session):
   user = db.query(models.User).filter(models.User.apikey == apikey).first()
   if not user:
     return PlainTextResponse('Wrong API key')
-  return user.pins
+  return user.pins or {}
 
 
 @router.get('/get/{apikey}/{pin}')
@@ -150,38 +150,50 @@ async def get_pin(apikey: str, pin: str, db: db_session):
   user = db.query(models.User).filter(models.User.apikey == apikey).first()
   if not user:
     return PlainTextResponse('Wrong API key')
-  return user.pins[pin]
+  value = (user.pins or {}).get(pin)
+  return 0 if value is None else value
+
+
+def get_user_for_pin_update(apikey: str, db: db_session):
+  # Serialize read-modify-write updates to a user's JSON pin data.
+  return (
+    db.query(models.User)
+    .filter(models.User.apikey == apikey)
+    .with_for_update()
+    .first()
+  )
 
 
 @router.get('/set/{apikey}/{pin}/{val}')
 async def set_pin(apikey: str, pin: str, val: int, db: db_session):
-  user = db.query(models.User).filter(models.User.apikey == apikey).first()
+  user = get_user_for_pin_update(apikey, db)
   if not user:
     return PlainTextResponse('Wrong API key')
-  user.pins[pin] = val
-  flag_modified(user, 'pins')
+  user.pins = {**(user.pins or {}), pin: val}
   db.commit()
   return {'pin': pin, 'val': val}
 
 
 @router.get('/plus/{apikey}/{pin}/{val}')
 async def plus_pin(apikey: str, pin: str, val: int, db: db_session):
-  user = db.query(models.User).filter(models.User.apikey == apikey).first()
+  user = get_user_for_pin_update(apikey, db)
   if not user:
     return PlainTextResponse('Wrong API key')
-  user.pins[pin] += val
-  flag_modified(user, 'pins')
+  pins = dict(user.pins or {})
+  pins[pin] = (pins.get(pin) or 0) + val
+  user.pins = pins
   db.commit()
   return {'pin': pin, 'plus': val}
 
 
 @router.get('/del/{apikey}/{pin}')
 async def del_pin(apikey: str, pin: str, db: db_session):
-  user = db.query(models.User).filter(models.User.apikey == apikey).first()
+  user = get_user_for_pin_update(apikey, db)
   if not user:
     return PlainTextResponse('Wrong API key')
-  del user.pins[pin]
-  flag_modified(user, 'pins')
+  pins = dict(user.pins or {})
+  pins.pop(pin, None)
+  user.pins = pins
   db.commit()
   return {'deleted': pin}
 
@@ -269,7 +281,7 @@ async def api(apikey: str, db: db_session):
   with open('json/constrain.json') as f:
     constrain = json.load(f)
   print(constrain)
-  user = db.query(models.User).filter(models.User.apikey == apikey).first()
+  user = get_user_for_pin_update(apikey, db)
   if not user:
     return PlainTextResponse('Wrong API key')
   # user.battery = battery
@@ -278,7 +290,9 @@ async def api(apikey: str, db: db_session):
   t = 0
   minutes = now.hour * 60 + now.minute
   weekday = now.weekday()
-  for i in user.schedule:
+  pins = user.pins or {}
+  oldpins = dict(user.oldpins or {})
+  for i in user.schedule or []:
     if i[1] < minutes < i[2] and i[3][weekday]:
       for j in i[0]:
         # if j == 'sleep':
@@ -286,27 +300,24 @@ async def api(apikey: str, db: db_session):
         #   break
         if j not in constrain and constrain:
           continue
-        if j not in user.oldpins:
-          user.oldpins[j] = 0
-        if user.pins[j] - user.oldpins[j] > 5:  # Против многозадачности и "кручения"
-          t += (user.pins[j] - user.oldpins[j]) * 2
-          user.oldpins[j] = user.pins[j]
-        elif user.pins[j] < user.oldpins[j]:  # Для обнуляющихся значений
-          user.oldpins[j] = user.pins[j]
+        current = pins.get(j) or 0
+        previous = oldpins.setdefault(j, 0) or 0
+        delta = current - previous
+        if delta > 5:  # Против многозадачности и "кручения"
+          t += delta * 2
+          oldpins[j] = current
+        elif delta < 0:  # Для обнуляющихся значений
+          oldpins[j] = current
       break
   user.lastpin = t
   if apikey in gestapo_disable and gestapo_disable[apikey] > now:
     t = (gestapo_disable[apikey] - now).total_seconds()
   t = 60 if t > 60 else t  # t = 120 if t > 120 else t
   if t == 0:
-    user.oldpins['red'] += 1
+    oldpins['red'] = (oldpins.get('red') or 0) + 1
   else:
-    user.oldpins['red'] = 0
-  # flag_modified(user, 'battery')
-  # flag_modified(user, 'version')
-  flag_modified(user, 'lasttime')
-  flag_modified(user, 'lastpin')
-  flag_modified(user, 'oldpins')
+    oldpins['red'] = 0
+  user.oldpins = oldpins
   db.commit()
   stat(user.username, now, t)
   return t
@@ -328,9 +339,12 @@ async def gestapo(apikey: str, db: db_session):
   now = datetime.now()  # .replace(tzinfo=timezone.utc)
   if user.apikey in gestapo_disable and gestapo_disable[user.apikey] > now:
     return 0
-  if (
-    int(time.time()) - user.lasttime > user.lastpin + 20 or user.oldpins['red'] > 20
-  ) and (
+  overdue = (
+    user.lasttime is not None
+    and int(time.time()) - user.lasttime > (user.lastpin or 0) + 20
+  )
+  red_count = (user.oldpins or {}).get('red') or 0
+  if (overdue or red_count > 20) and (
     10 * 60 < now.hour * 60 + now.minute < 24 * 60  # 23 * 60
     or (now.hour * 60 + now.minute) % 1440 < 2 * 60  # 2 * 60
   ):
