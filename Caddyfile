@@ -1,3 +1,7 @@
 band.razvit.org {
 	reverse_proxy api:8000
 }
+
+http:// {
+	reverse_proxy api:8000
+}
